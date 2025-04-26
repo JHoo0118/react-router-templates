@@ -52,7 +52,19 @@ export default async function handleRequest(
           const body = new PassThrough();
           const stream = createReadableStreamFromReadable(body);
           responseHeaders.set("Content-Type", "text/html");
-
+          responseHeaders.set(
+            "Strict-Transport-Security",
+            "max-age=31536000; includeSubDomains; preload"
+          );
+          responseHeaders.set("X-Content-Type-Options", "nosniff");
+          responseHeaders.set(
+            "Referrer-Policy",
+            "strict-origin-when-cross-origin"
+          );
+          responseHeaders.set("Cross-Origin-Opener-Policy", "same-origin");
+          responseHeaders.set("Cross-Origin-Embedder-Policy", "unsafe-none");
+          responseHeaders.set("X-Frame-Options", "DENY");
+          responseHeaders.set("X-XSS-Protection", "1; mode=block");
           resolve(
             // @ts-expect-error - We purposely do not define the body as existent so it's not used inside loaders as it's injected there as well
             appContext.body(stream, {
