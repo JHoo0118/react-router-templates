@@ -1,5 +1,5 @@
-import korean from "../../resources/locales/ko/common.json";
-import english from "../../resources/locales/en/common.json";
+import korean from "../../resources/locales/ko/common.json" with { type: "json" };
+import english from "../../resources/locales/en/common.json" with { type: "json" };
 
 const languages = ["en", "ko"] as const;
 export const supportedLanguages = [...languages];
