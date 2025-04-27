@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 const envSchema = z.object({
+  PORT: z.string(),
   NODE_ENV: z.enum(["development", "production", "test"]),
   APP_DEPLOYMENT_ENV: z.enum(["development", "production"]),
 });
@@ -44,7 +45,9 @@ export const initEnv = () => {
 export const getClientEnv = () => {
   const serverEnv = env;
   return {
+    PORT: serverEnv.PORT,
     NODE_ENV: serverEnv.NODE_ENV,
+    DEPLOYMENT_ENV: serverEnv.APP_DEPLOYMENT_ENV,
   };
 };
 

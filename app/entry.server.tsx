@@ -7,6 +7,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import {
   type AppLoadContext,
   type EntryContext,
+  type HandleErrorFunction,
   ServerRouter,
 } from "react-router";
 import i18n from "./localization/i18n"; // your i18n configuration file
@@ -23,9 +24,12 @@ export default async function handleRequest(
   context: EntryContext,
   appContext: AppLoadContext
 ) {
-  const callbackName = isbot(request.headers.get("user-agent"))
-    ? "onAllReady"
-    : "onShellReady";
+  // onShellReady: 초기 HTML 셸을 빠르게 전송하고 나머지 콘텐츠를 스트리밍합니다. 사용자에게 빠른 첫 페이지 로드를 제공합니다.
+  // onAllReady: 모든 콘텐츠(데이터 페칭, 컴포넌트 렌더링 등)가 완료될 때까지 기다린 후 전체 HTML을 전송합니다. 검색 엔진 크롤러나 정적 페이지 생성에 적합합니다.
+  const callbackName =
+    isbot(request.headers.get("user-agent")) || context.isSpaMode
+      ? "onAllReady"
+      : "onShellReady";
   const instance = createInstance();
   const lng = appContext.lang;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -90,3 +94,10 @@ export default async function handleRequest(
     setTimeout(abort, streamTimeout + 1000);
   });
 }
+
+export const handleError: HandleErrorFunction = (error, { request }) => {
+  if (!request.signal.aborted && process.env.NODE_ENV === "production") {
+    // Also log to console for server-side visibility
+    console.error(error);
+  }
+};

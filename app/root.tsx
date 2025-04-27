@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
   useRouteError,
+  useRouteLoaderData,
 } from "react-router";
 import { useChangeLanguage } from "remix-i18next/react";
 import { ClientHintCheck, getHints } from "./services/client-hints";
@@ -30,8 +31,10 @@ export const handle = {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useRouteLoaderData<typeof loader>("root");
+  const { i18n } = useTranslation();
   return (
-    <html lang="ko">
+    <html lang={data?.lang ?? "ko"} dir={i18n.dir()}>
       <head>
         <ClientHintCheck />
         <meta charSet="utf-8" />
@@ -56,7 +59,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
           queries: {
             // With SSR, we usually want to set some default staleTime
             // above 0 to avoid refetching immediately on the client
-            staleTime: 60 * 1000,
+            staleTime: 60 * 5 * 1000,
           },
         },
       })
