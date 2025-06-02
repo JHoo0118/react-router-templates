@@ -1,6 +1,8 @@
 import { RemixI18Next } from "remix-i18next/server";
-import i18n from "~/localization/i18n"; // your i18n configuration file
+
 import { resources } from "./resource";
+
+import i18n from "~/localization/i18n"; // your i18n configuration file
 
 const i18next = new RemixI18Next({
   detection: {

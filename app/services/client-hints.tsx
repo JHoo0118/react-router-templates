@@ -10,6 +10,7 @@ import {
 import { clientHint as timeZoneHint } from "@epic-web/client-hints/time-zone";
 import { useEffect } from "react";
 import { useRevalidator, useRouteLoaderData } from "react-router";
+
 import type { Route } from "../+types/root";
 
 export const { getHints, getClientHintCheckScript } = getHintUtils({

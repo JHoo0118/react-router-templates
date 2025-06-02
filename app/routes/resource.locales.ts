@@ -1,6 +1,8 @@
 import { z } from "zod";
-import { resources } from "~/localization/resource";
+
 import type { Route } from "./+types/resource.locales";
+
+import { resources } from "~/localization/resource";
 
 export async function loader({ request, context }: Route.LoaderArgs) {
   const { env } = context;

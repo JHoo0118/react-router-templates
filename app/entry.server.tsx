@@ -1,7 +1,7 @@
-import { PassThrough } from "node:stream";
 import { createReadableStreamFromReadable } from "@react-router/node";
 import { createInstance } from "i18next";
 import { isbot } from "isbot";
+import { PassThrough } from "node:stream";
 import { renderToPipeableStream } from "react-dom/server";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import {
@@ -10,6 +10,7 @@ import {
   type HandleErrorFunction,
   ServerRouter,
 } from "react-router";
+
 import i18n from "./localization/i18n"; // your i18n configuration file
 import i18nextOpts from "./localization/i18n.server";
 import { resources } from "./localization/resource";
@@ -32,8 +33,7 @@ export default async function handleRequest(
       : "onShellReady";
   const instance = createInstance();
   const lng = appContext.lang;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const ns = i18nextOpts.getRouteNamespaces(context as any);
+  const ns = i18nextOpts.getRouteNamespaces(context);
 
   await instance
     .use(initReactI18next) // Tell our instance to use react-i18next

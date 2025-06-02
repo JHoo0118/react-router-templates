@@ -1,5 +1,6 @@
 import type { Context } from "hono";
 import { i18next } from "remix-hono/i18next";
+
 import { getClientEnv, initEnv } from "~/env.server";
 
 // Setup the .env vars

@@ -1,7 +1,8 @@
-import { useTranslation } from "react-i18next";
 import type { MetaFunction } from "react-router";
-import { convertDateToUserTz } from "~/utils/dates";
+
 import type { Route } from "../../routes/about._index/+types/route";
+
+import { convertDateToUserTz } from "~/utils/dates";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,7 +20,6 @@ export const clientLoader = ({ request }: Route.ClientLoaderArgs) => {
 
 export default function Index({ loaderData }: Route.ComponentProps) {
   const { timezoneDate } = loaderData;
-  const { t } = useTranslation();
   console.log("client", timezoneDate);
 
   return (

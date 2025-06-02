@@ -1,3 +1,6 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   isRouteErrorResponse,
   Links,
@@ -9,12 +12,11 @@ import {
   useRouteLoaderData,
 } from "react-router";
 import { useChangeLanguage } from "remix-i18next/react";
-import { ClientHintCheck, getHints } from "./services/client-hints";
+
 import type { Route } from "./+types/root";
+import { ClientHintCheck, getHints } from "./services/client-hints";
+
 import "./styles/global.css";
-import { useTranslation } from "react-i18next";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
 
 export async function loader({ context, request }: Route.LoaderArgs) {
   const { lang, clientEnv } = context;

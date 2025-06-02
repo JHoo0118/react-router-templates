@@ -1,7 +1,9 @@
 import { useTranslation } from "react-i18next";
 import type { MetaFunction } from "react-router";
-import { convertDateToUserTz } from "~/utils/dates";
+
 import type { Route } from "./+types/_index";
+
+import { convertDateToUserTz } from "~/utils/dates";
 
 export const meta: MetaFunction = () => {
   return [

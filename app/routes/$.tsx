@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { href, useNavigate } from "react-router";
+
 import { Link } from "~/lib/link";
 
 export default function Route404() {

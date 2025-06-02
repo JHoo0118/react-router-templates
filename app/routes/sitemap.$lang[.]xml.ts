@@ -1,15 +1,18 @@
 import { generateRemixSitemap } from "@forge42/seo-tools/remix/sitemap";
-import { createDomain } from "~/utils/http";
+
 import type { Route } from "./+types/sitemap.$lang[.]xml";
+
+import { createDomain } from "~/utils/http";
 
 export const loader = async ({ request, params }: Route.LoaderArgs) => {
   const domain = createDomain(request);
 
   const { routes } = await import("virtual:react-router/server-build");
 
+  
   const sitemap = await generateRemixSitemap({
     domain,
-    routes: Object.values(routes).filter(Boolean) as any,
+    routes: Object.values(routes).filter(Boolean),
     ignore: ["/resource/*"],
     // Transforms the url before adding it to the sitemap
     urlTransformer: (url) => `${url}?lng=${params.lang}`,
