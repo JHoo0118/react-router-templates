@@ -11,7 +11,7 @@ import {
 import { useChangeLanguage } from "remix-i18next/react";
 import { ClientHintCheck, getHints } from "./services/client-hints";
 import type { Route } from "./+types/root";
-import tailwindcss from "./app.css?url";
+import "./styles/global.css";
 import { useTranslation } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
@@ -22,9 +22,7 @@ export async function loader({ context, request }: Route.LoaderArgs) {
   return { lang, clientEnv, hints };
 }
 
-export const links: Route.LinksFunction = () => [
-  { rel: "stylesheet", href: tailwindcss },
-];
+export const links: Route.LinksFunction = () => [];
 
 export const handle = {
   i18n: "common",
