@@ -20,7 +20,6 @@ export const loader = ({ request }: Route.LoaderArgs) => {
 export default function Index({ loaderData }: Route.ComponentProps) {
   const { timezoneDate } = loaderData;
   const { t } = useTranslation();
-  console.log("server", timezoneDate);
 
   return (
     <div className="placeholder-index relative h-full min-h-screen w-screen dark:bg-gradient-to-b bg-white  dark:from-blue-950 dark:to-blue-900 dark:text-white sm:pb-16 sm:pt-8">

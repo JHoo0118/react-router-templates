@@ -1,4 +1,3 @@
-import { cacheHeader } from "pretty-cache-header";
 import { z } from "zod";
 import { resources } from "~/localization/resource";
 import type { Route } from "./+types/resource.locales";
@@ -29,12 +28,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   if (env.APP_DEPLOYMENT_ENV === "production") {
     headers.set(
       "Cache-Control",
-      cacheHeader({
-        maxAge: "5m",
-        sMaxage: "1d",
-        staleWhileRevalidate: "7d",
-        staleIfError: "7d",
-      })
+      "max-age=300, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800"
     );
   }
 
