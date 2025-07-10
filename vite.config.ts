@@ -38,7 +38,7 @@ export default ({ mode }: { mode: string }) => {
       }),
       !isProduction &&
         visualizer({
-          filename: "./build/client/stats.html",
+          filename: "./dist/client/stats.html",
           gzipSize: true,
           brotliSize: true,
           open: true,

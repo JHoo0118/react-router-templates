@@ -5,7 +5,7 @@
   "scripts": {
     "build": "pnpm react-router build",
     "dev": "pnpm react-router dev",
-    "start": "NODE_ENV=production node ./build/server/index.js",
+    "start": "NODE_ENV=production node ./dist/server/index.js",
     "typecheck": "pnpm react-router typegen && tsc",
     "lint": "eslint app --fix --cache --report-unused-disable-directives --max-warnings 0",
     "test:e2e": "pnpm playwright test",
