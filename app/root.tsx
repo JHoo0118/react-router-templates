@@ -34,11 +34,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const data = useRouteLoaderData<typeof loader>("root");
   const { i18n } = useTranslation();
   return (
-    <html lang={data?.lang ?? "ko"} dir={i18n.dir()}>
+    <html
+      lang={data?.lang ?? "ko"}
+      dir={i18n.dir()}
+    >
       <head>
         <ClientHintCheck />
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
         <Meta />
         <Links />
       </head>
@@ -62,7 +68,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
             staleTime: 60 * 5 * 1000,
           },
         },
-      })
+      }),
   );
   const { lang, clientEnv } = loaderData;
   useChangeLanguage(lang);

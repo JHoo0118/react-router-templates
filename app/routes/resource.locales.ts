@@ -8,21 +8,18 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   const { env } = context;
   const url = new URL(request.url);
 
-  const lng = z
-    .string()
-    .refine((lng): lng is keyof typeof resources =>
-      Object.keys(resources).includes(lng)
-    )
-    .parse(url.searchParams.get("lng"));
-
+  const lngParam = url.searchParams.get("lng");
+  if (!lngParam || !(lngParam in resources)) {
+    throw new Response("Invalid language", { status: 400 });
+  }
+  const lng = lngParam as keyof typeof resources;
   const namespaces = resources[lng];
 
-  const ns = z
-    .string()
-    .refine((ns): ns is keyof typeof namespaces => {
-      return Object.keys(resources[lng]).includes(ns);
-    })
-    .parse(url.searchParams.get("ns"));
+  const nsParam = url.searchParams.get("ns");
+  if (!nsParam || !(nsParam in namespaces)) {
+    throw new Response("Invalid namespace", { status: 400 });
+  }
+  const ns = nsParam as keyof typeof namespaces;
 
   const headers = new Headers();
 
@@ -30,7 +27,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   if (env.APP_DEPLOYMENT_ENV === "production") {
     headers.set(
       "Cache-Control",
-      "max-age=300, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800"
+      "max-age=300, s-maxage=86400, stale-while-revalidate=604800, stale-if-error=604800",
     );
   }
 
